@@ -12,7 +12,8 @@ import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 
 const App = () => {
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
-  const [presupuesto, setPresupuesto] = useState(0)
+  const [presupuesto, setPresupuesto] = useState(0);
+  const [gastos, setGastado] = useState([]);
 
   const handleNuevoPresupuesto = (presupuesto) => {
     if (Number(presupuesto) > 0) {
@@ -31,6 +32,7 @@ const App = () => {
         {
           isValidPresupuesto ? (
             <ControlPresupuesto
+              gastos={gastos}
               presupuesto={presupuesto}
             />
           ) : (
