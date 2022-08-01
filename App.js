@@ -22,6 +22,7 @@ const App = () => {
   const [presupuesto, setPresupuesto] = useState(0);
   const [gastos, setGastos] = useState([]);
   const [modal, setModal] = useState(false);
+  const [gasto, setGasto] = useState({});
 
   const handleNuevoPresupuesto = (presupuesto) => {
     if (Number(presupuesto) > 0) {
@@ -34,19 +35,24 @@ const App = () => {
 
   const handleGasto = gasto => {
 
-    if (Object.values(gasto).includes('')) {
+    if ([gasto.nombre, gasto.categoria, gasto.cantidad].includes('')) {
       console.log('HAY AL MENOS UN CAMPO VACIO');
       Alert.alert('¡Errorr!', "Todos los campos son obligatorios.");
-
       return;
     }
 
-    gasto.id = generarId();
-    gasto.fecha = Date.now();
-    setGastos([...gastos, gasto]);
-    setModal(!modal);
+    if (gasto.id) {
+      console.log('EDICIÓN');
+      const gastosActualizados = gastos.map(gastoState => gastoState.id === gasto.id ? gasto : gastoState);
+      setGastos(gastosActualizados);
+    } else {
+      gasto.id = generarId();
+      gasto.fecha = Date.now();
+      setGastos([...gastos, gasto]);
+      console.log({ gasto });
+    }
 
-    console.log({ gasto });
+    setModal(!modal);
 
   }
 
@@ -76,6 +82,8 @@ const App = () => {
         {isValidPresupuesto && (
           <ListadoGastos
             gastos={gastos}
+            setModal={setModal}
+            setGasto={setGasto}
           />
         )}
       </ScrollView>
@@ -90,6 +98,8 @@ const App = () => {
           <FormularioGasto
             setModal={setModal}
             handleGasto={handleGasto}
+            gasto={gasto}
+            setGasto={setGasto}
           />
         </Modal>
       )}
