@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  ScrollView,
   SafeAreaView,
   Text,
   StyleSheet,
@@ -13,11 +14,13 @@ import ControlPresupuesto from './src/components/ControlPresupuesto';
 import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
+import ListadoGastos from './src/components/ListadoGastos';
+import { generarId } from './src/helpers';
 
 const App = () => {
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [presupuesto, setPresupuesto] = useState(0);
-  const [gastos, setGastado] = useState([]);
+  const [gastos, setGastos] = useState([]);
   const [modal, setModal] = useState(false);
 
   const handleNuevoPresupuesto = (presupuesto) => {
@@ -29,30 +32,52 @@ const App = () => {
     }
   }
 
+  const handleGasto = gasto => {
+
+    if (Object.values(gasto).includes('')) {
+      console.log('HAY AL MENOS UN CAMPO VACIO');
+      Alert.alert('¡Errorr!', "Todos los campos son obligatorios.");
+
+      return;
+    }
+
+    gasto.id = generarId();
+    setGastos([...gastos, gasto]);
+    setModal(!modal);
+
+    console.log({ gasto });
+
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Header />
+      <ScrollView>
+        <View style={styles.header}>
+          <Header />
+          {
+            isValidPresupuesto ? (
 
-        {
-          isValidPresupuesto ? (
+              <ControlPresupuesto
+                gastos={gastos}
+                presupuesto={presupuesto}
+              />
 
+            ) : (
+              <NuevoPresupuesto
+                presupuesto={presupuesto}
+                setPresupuesto={setPresupuesto}
+                handleNuevoPresupuesto={handleNuevoPresupuesto}
 
-            <ControlPresupuesto
-              gastos={gastos}
-              presupuesto={presupuesto}
-            />
+              />
+            )}
+        </View>
 
-
-          ) : (
-            <NuevoPresupuesto
-              presupuesto={presupuesto}
-              setPresupuesto={setPresupuesto}
-              handleNuevoPresupuesto={handleNuevoPresupuesto}
-
-            />
-          )}
-      </View>
+        {isValidPresupuesto && (
+          <ListadoGastos
+            gastos={gastos}
+          />
+        )}
+      </ScrollView>
       {modal && (
         <Modal
           animationType='slide'
@@ -63,6 +88,7 @@ const App = () => {
         >
           <FormularioGasto
             setModal={setModal}
+            handleGasto={handleGasto}
           />
         </Modal>
       )}
@@ -94,8 +120,8 @@ const styles = StyleSheet.create({
     width: 65,
     height: 65,
     position: 'absolute',
-    top: 19,
-    right: 20
+    bottom: 50,
+    right: 15
   }
 });
 

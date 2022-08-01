@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, SafeAreaView, View, TextInput, StyleSheet, Pressable } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import globalStyle from '../styles'
-const FormularioGasto = ({ setModal }) => {
+const FormularioGasto = ({ setModal, handleGasto }) => {
+
+    const [nombre, setNombre] = useState('');
+    const [cantidad, setCantidad] = useState('');
+    const [categoria, setCategoria] = useState('');
+
     return (
         <SafeAreaView style={styles.container}>
 
@@ -22,6 +27,8 @@ const FormularioGasto = ({ setModal }) => {
                         style={styles.input}
                         placeholder='Nombre del Gasto. Ej. Comida'
                         placeholderTextColor='#C8C8C8'
+                        value={nombre}
+                        onChangeText={setNombre}
                     />
                 </View>
                 <View style={styles.campo}>
@@ -31,13 +38,21 @@ const FormularioGasto = ({ setModal }) => {
                         placeholder='Cantidad del Gasto. Ej. 300'
                         keyboardType='numeric'
                         placeholderTextColor='#C8C8C8'
+                        value={cantidad}
+                        onChangeText={setCantidad}
 
                     />
                 </View>
 
                 <View style={styles.campoPicker}>
                     <Text style={styles.label}>Categoria Gasto</Text>
-                    <Picker style={styles.picker}>
+                    <Picker
+                        selectedValue={categoria}
+                        onValueChange={(itemValue) => {
+                            setCategoria(itemValue)
+                        }}
+                        style={styles.picker}
+                    >
                         <Picker.Item label='-- SELECIONE UNA OPCIÓN --' value="" />
                         <Picker.Item label='Ahorro' value="ahorro" />
                         <Picker.Item label='Comida' value="comida" />
@@ -50,7 +65,9 @@ const FormularioGasto = ({ setModal }) => {
                     </Picker>
                 </View>
 
-                <Pressable style={styles.btnSubmit}>
+                <Pressable
+                    onPress={() => handleGasto({ nombre, cantidad, categoria })}
+                    style={styles.btnSubmit}>
                     <Text style={styles.btnText}>Agregar Gasto</Text>
                 </Pressable>
             </View>
@@ -90,7 +107,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
         padding: 10,
         borderRadius: 10,
-        marginTop: 10
+        marginTop: 10,
+        color:'#64748b'
     },
     picker: {
         color: '#64748b',
