@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
+import { Text, StyleSheet, View, Pressable, Alert } from 'react-native'
 import globalStyle from '../styles'
 import { formaterCantidad } from '../helpers'
 import CircularProgress from 'react-native-circular-progress-indicator'
 
-const ControlPresupuesto = ({ presupuesto, gastos }) => {
+const ControlPresupuesto = ({ presupuesto, gastos, resetApp }) => {
 
     const [disponible, setDisponible] = useState(0);
     const [gastado, setGastado] = useState(0);
@@ -29,8 +29,7 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
         setGastado(totalGastado)
         setDisponible(totalDisponible);
 
-    }, [gastos])
-
+    }, [gastos]);
 
     return (
         <View style={styles.container}>
@@ -49,6 +48,12 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
                 />
             </View>
             <View style={styles.contenedorText}>
+                <Pressable
+                    onLongPress={resetApp}
+                    style={styles.boton}
+                >
+                    <Text style={styles.textoBoton}>Reiniciar App</Text>
+                </Pressable>
                 <Text style={styles.valorText}>
                     <Text style={styles.label}>Presupuesto: {''}</Text>
                     {formaterCantidad(presupuesto)}
@@ -73,10 +78,6 @@ const styles = StyleSheet.create({
     centerGrafica: {
         alignItems: 'center'
     },
-    image: {
-        width: 150,
-        height: 150
-    },
     contenedorText: {
         marginTop: 50
     },
@@ -89,6 +90,19 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: '700',
         color: '#3b82f6'
+    },
+    boton: {
+        backgroundColor: '#db2777',
+        padding: 10,
+        marginBottom: 20,
+        borderRadius: 5,
+        bottom: 20
+    },
+    textoBoton: {
+        textAlign: 'center',
+        color: '#FFF',
+        fontWeight: 'bold',
+        textTransform: 'uppercase'
     }
 
 })
