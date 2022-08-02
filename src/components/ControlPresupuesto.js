@@ -8,8 +8,7 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
 
     const [disponible, setDisponible] = useState(0);
     const [gastado, setGastado] = useState(0);
-
-    const [porcentaje, setPorcentaje] = useState(0)
+    const [porcentaje, setPorcentaje] = useState(0);
 
     useEffect(() => {
 
@@ -20,6 +19,11 @@ const ControlPresupuesto = ({ presupuesto, gastos }) => {
         const nuevoPorcentaje = (
             ((presupuesto - totalDisponible) / presupuesto) * 100
         )
+
+        console.log('NUEVO PORCENTAJE =====>', nuevoPorcentaje);
+        console.log('TOTAL GASTADO =====>', totalGastado);
+        console.log('TOTAL DISPONIBLE =====>', totalDisponible);
+
 
         setPorcentaje(nuevoPorcentaje)
         setGastado(totalGastado)

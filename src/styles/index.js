@@ -1,7 +1,7 @@
 const globalStyle = {
     container: {
         backgroundColor: '#FFF',
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         borderRadius: 10,
         paddingVertical: 40,
         paddingHorizontal: 20,

@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import globalStyle from '../styles'
 
 const NuevoPresupuesto = ({ handleNuevoPresupuesto, presupuesto, setPresupuesto }) => {
@@ -8,9 +9,10 @@ const NuevoPresupuesto = ({ handleNuevoPresupuesto, presupuesto, setPresupuesto 
             <Text style={styles.label}>Definir Presupuesto</Text>
             <TextInput
                 keyboardType='numeric'
-                placeholder='Agregar Presupuesto'
+                placeholder='Presupuesto Mensual!'
+                placeholderTextColor="#64748b"
                 style={styles.input}
-                value={presupuesto.toString()}
+                value={() => { presupuesto.toString() }}
                 onChangeText={setPresupuesto}
             />
 
@@ -25,14 +27,13 @@ const NuevoPresupuesto = ({ handleNuevoPresupuesto, presupuesto, setPresupuesto 
 
 const styles = StyleSheet.create({
     container: {
-
         ...globalStyle.container
-
     },
     label: {
         textAlign: 'center',
         fontSize: 24,
         color: '#3b82f6',
+        textTransform: 'uppercase'
     },
     input: {
         backgroundColor: '#f5f5f5',

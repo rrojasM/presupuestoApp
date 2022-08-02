@@ -16,16 +16,14 @@ const diccionarioIconos = {
 }
 const Gasto = ({ gasto, setModal, setGasto }) => {
 
-    const handleAcciones = () =>{
+    const handleAcciones = () => {
         setModal(true);
         setGasto(gasto);
     }
 
-    const { nombre, categoria, cantidad, id, fecha } = gasto;
+    const { nombre, categoria, cantidad, fecha } = gasto;
     return (
-        <Pressable
-            onLongPress={ handleAcciones}
-       handleAcciones >
+        <Pressable onLongPress={handleAcciones}>
             <View style={styles.container}>
                 <View style={styles.contenido}>
                     <View style={styles.contenedorImagen}>
