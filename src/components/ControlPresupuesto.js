@@ -23,9 +23,10 @@ const ControlPresupuesto = ({ presupuesto, gastos, resetApp }) => {
         console.log('NUEVO PORCENTAJE =====>', nuevoPorcentaje);
         console.log('TOTAL GASTADO =====>', totalGastado);
         console.log('TOTAL DISPONIBLE =====>', totalDisponible);
+        console.log("PORCENTAJE CIRCLE BAR ANTES DE =====>", porcentaje);
+        setPorcentaje(nuevoPorcentaje);
 
-
-        setPorcentaje(nuevoPorcentaje)
+        console.log("PORCENTAJE CIRCLE BAR =====>", porcentaje);
         setGastado(totalGastado)
         setDisponible(totalDisponible);
 
@@ -36,7 +37,7 @@ const ControlPresupuesto = ({ presupuesto, gastos, resetApp }) => {
             <View style={styles.centerGrafica}>
                 <CircularProgress
                     value={porcentaje}
-                    duration={1000}
+                    duration={100}
                     radius={80}
                     valueSuffix={'%'}
                     title='Gastado'

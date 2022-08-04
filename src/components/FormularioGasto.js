@@ -95,7 +95,7 @@ const FormularioGasto = ({ setModal, handleGasto, setGasto, gasto, eliminarGasto
                                 <Picker.Item label='-- SELECIONE UNA OPCIÓN --' value="" />
                                 <Picker.Item label='Ahorro' value="ahorro" />
                                 <Picker.Item label='Comida' value="comida" />
-                                <Picker.Item label='Casa' value="Casa" />
+                                <Picker.Item label='Casa' value="casa" />
                                 <Picker.Item label='Gastos Varios' value="gastos" />
                                 <Picker.Item label='Ocio' value="ocio" />
                                 <Picker.Item label='Salud' value="salud" />
@@ -108,9 +108,7 @@ const FormularioGasto = ({ setModal, handleGasto, setGasto, gasto, eliminarGasto
                             onPress={() => handleGasto({ nombre, cantidad, categoria, id, fecha })}
                             style={styles.btnSubmit}>
                             <Text style={styles.btnText}>
-
                                 {gasto?.nombre ? 'Guardar Cambios Gasto' : 'Agregar Gasto'}
-                                Agregar Gasto
                             </Text>
                         </Pressable>
                     </View>
